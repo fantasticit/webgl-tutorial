@@ -1,5 +1,9 @@
 export default [
   {
+    title: 'WebGL'
+  },
+
+  {
     title: 'THREE.js'
   },
 

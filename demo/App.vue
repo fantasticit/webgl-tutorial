@@ -37,8 +37,6 @@
 <script>
 import routes from './views/routes'
 
-console.log(routes)
-
 export default {
   data() {
     return {
@@ -66,6 +64,7 @@ aside {
   h2 {
     text-align: center;
     font-size: 1.2em;
+    margin-top: 20px;
   }
 
   h3 {

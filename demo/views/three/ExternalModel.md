@@ -33,7 +33,7 @@ document.querySelector('#app').appendChild(renderer.domElement)
 
 const scene = new THREE.Scene()
 
-const camera = new THREE.OrthographicCamera(-10, 10, 8, -8, 1, 10)
+const camera = new THREE.OrthographicCamera(-10, 10, 8, -8, 0.1, 10)
 camera.position.set(0, 0, 5)
 scene.add(camera)
 
@@ -85,7 +85,7 @@ document.querySelector('#app').appendChild(renderer.domElement)
 
 const scene = new THREE.Scene()
 
-const camera = new THREE.OrthographicCamera(-10, 10, 8, -8, 1, 10)
+const camera = new THREE.OrthographicCamera(-10, 10, 8, -8, 0.1, 10)
 camera.position.set(0, 0, 5)
 scene.add(camera)
 
@@ -138,7 +138,7 @@ document.querySelector('#app').appendChild(renderer.domElement)
 
 const scene = new THREE.Scene()
 
-const camera = new THREE.OrthographicCamera(-10, 10, 8, -8, 1, 10)
+const camera = new THREE.OrthographicCamera(-10, 10, 8, -8, 0.1, 10)
 camera.position.set(0, 0, 5)
 scene.add(camera)
 
