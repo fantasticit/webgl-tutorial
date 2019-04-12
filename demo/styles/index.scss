@@ -128,6 +128,7 @@ iframe {
   height: 100vh;
   position: relative;
   padding-left: 200px;
+  overflow: hidden;
 
   aside {
     position: absolute;
@@ -160,7 +161,7 @@ iframe {
   nav li a {
     display: inline-block;
     width: 100%;
-    padding: 10px 20px;
+    padding: 10px 30px;
   }
 
   nav li a.router-link-exact-active {

@@ -1,10 +1,12 @@
 <template>
   <div id="app">
     <aside :class="showMenu ? 'is-show' : ''">
+      <h2>WebGL 入门笔记</h2>
       <nav>
         <ul>
           <li v-for="(route, i) in routes" :key="i">
-            <router-link :to="route.path">{{ route.title }}</router-link>
+            <router-link v-if="route.path" :to="route.path">{{ route.title }}</router-link>
+            <h3 v-else>{{ route.title }}</h3>
           </li>
         </ul>
       </nav>
@@ -33,12 +35,14 @@
 
 
 <script>
-import router from './router'
+import routes from './views/routes'
+
+console.log(routes)
 
 export default {
   data() {
     return {
-      routes: router.options.routes,
+      routes: routes,
       showMenu: false
     }
   },
@@ -54,6 +58,22 @@ export default {
 
 <style lang="scss">
 @import './styles/index.scss';
+
+aside {
+  font-size: 14px;
+  // overflow: hidden;
+
+  h2 {
+    text-align: center;
+    font-size: 1.2em;
+  }
+
+  h3 {
+    font-size: 1.1em;
+    padding-left: 20px;
+    color: rgba(0, 0, 0, 0.45);
+  }
+}
 </style>
 
 

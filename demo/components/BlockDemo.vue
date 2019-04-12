@@ -95,15 +95,26 @@ export default {
     syncCode() {
       const oDemo = this.$refs['demo']
 
-      oDemo.innerHTML = `<iframe frameborder="0"></iframe>`
+      try {
+        oDemo.innerHTML = `<iframe frameborder="0"></iframe>`
 
-      const iframe = oDemo.querySelector('iframe')
-      iframe.contentWindow.document.write(
-        `<div id="app" style="width: 100%; height: 100%; overflow: hidden">
+        const iframe = oDemo.querySelector('iframe')
+        iframe.contentWindow.document.write(
+          `<div id="app" style="width: 100%; height: 100%; overflow: hidden">
         <\/div>
+        <!-- three.js -->
         <script src=${'http://s4.qhres.com/static/b31e715a21d393bd.js'}><\/script>
+        <!-- objLoader.js -->
+        <script src="http://s7.qhres.com/static/88b520aaa76d723b.js"><\/script>
+        <!-- MTLLoader.js -->
+        <script src="http://s6.qhres.com/static/c5f4a58a44d0982f.js"><\/script>
+        <!-- OBJMTLLoader.js -->
+        
         <script>${this.editor.getValue()}<\/script>`
-      )
+        )
+      } catch (e) {
+        throw e
+      }
     },
 
     fullscreen() {
