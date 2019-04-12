@@ -102,6 +102,8 @@ export default {
         iframe.contentWindow.document.write(
           `<div id="app" style="width: 100%; height: 100%; overflow: hidden">
         <\/div>
+        <!-- gl-matrix.js -->
+        <script src=${'http://s7.qhres.com/static/f86dcad79f02c645.js'}><\/script>
         <!-- three.js -->
         <script src=${'http://s4.qhres.com/static/b31e715a21d393bd.js'}><\/script>
         <!-- objLoader.js -->

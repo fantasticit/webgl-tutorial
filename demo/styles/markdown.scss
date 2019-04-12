@@ -379,7 +379,8 @@
 .markdown-body code.language-stylus:before,
 .markdown-body code.language-python:before,
 .markdown-body code.language-nginx:before,
-.markdown-body code.language-json:before {
+.markdown-body code.language-json:before,
+.markdown-body code.language-glsl:before {
   position: absolute;
   top: 0;
   right: 0;
@@ -442,4 +443,8 @@
 
 .markdown-body code.language-json:before {
   content: 'JSON';
+}
+
+.markdown-body code.language-glsl:before {
+  content: 'GLSL';
 }

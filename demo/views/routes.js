@@ -4,6 +4,18 @@ export default [
   },
 
   {
+    path: '/webgl',
+    title: '初识 WebGL',
+    component: () => import('./webgl/start.md')
+  },
+
+  {
+    path: '/webgl/2DConent',
+    title: '创建 2D 物体',
+    component: () => import('./webgl/2DContent.md')
+  },
+
+  {
     title: 'THREE.js'
   },
 
