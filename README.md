@@ -1,6 +1,6 @@
 # WebGL 入门笔记
 
-[在线网址]()
+[在线网址](https://justemit.github.io/webgl-tutorial/)
 
 ## 目录
 
@@ -23,5 +23,5 @@
 
 ## 参考
 
-- [MDN https://github.com/Ovilia/ThreeExample.js](https://developer.mozilla.org/zh-CN/docs/Web/API/WebGL_API/Tutorial)
+- [MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/WebGL_API/Tutorial)
 - [Three.js 入门指南](https://github.com/Ovilia/ThreeExample.js)

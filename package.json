@@ -1,7 +1,7 @@
 {
-  "name": "q3d",
+  "name": "webgl-tutorial",
   "version": "0.0.1",
-  "description": "A visulization library based on three.js",
+  "description": "WebGL learning note",
   "main": "lib/index.js",
   "scripts": {
     "start": "webpack-dev-server --config ./build/webpack.conf.dev.js",
