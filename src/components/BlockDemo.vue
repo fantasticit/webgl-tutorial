@@ -105,7 +105,7 @@ export default {
         <!-- gl-matrix.js -->
         <script src="https://s3.ssl.qhres.com/static/f86dcad79f02c645.js"><\/script>
         <!-- three.js -->
-        <script src="https://cdn.bootcss.com/three.js/r83/three.min.js"><\/script>
+        <script src="https://s2.ssl.qhres.com/static/b31e715a21d393bd.js"><\/script>
         <!-- objLoader.js -->
         <script src="https://s5.ssl.qhres.com/static/88b520aaa76d723b.js"><\/script>
         <!-- MTLLoader.js -->

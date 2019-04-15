@@ -278,7 +278,7 @@ document.querySelector('#app').appendChild(renderer.domElement)
 const loader = new THREE.FontLoader()
 
 loader.load(
-  'http://dpxr-graph-bed.oss-cn-beijing.aliyuncs.com/helvetiker_regular.typeface.json',
+  'https://dpxr-graph-bed.oss-cn-beijing.aliyuncs.com/helvetiker_regular.typeface.json',
   font => {
     const scene = new THREE.Scene()
     const text = new THREE.Mesh(
