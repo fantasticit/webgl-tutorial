@@ -245,7 +245,7 @@ function start() {
 
   const texture = loadTextures(
     gl,
-    'http://p4.qhimg.com/t01836de9c0b1068a6d.jpg'
+    'https://p0.ssl.qhimg.com/t01836de9c0b1068a6d.jpg'
   )
 
   // 2. 绘制场景

@@ -95,7 +95,7 @@ const scene = new THREE.Scene()
 
 const loader = new THREE.TextureLoader()
 
-loader.load('http://p0.qhimg.com/t0149eca9091f0310d4.png', texture => {
+loader.load('https://p2.ssl.qhimg.com/t0149eca9091f0310d4.png', texture => {
   const cube = new THREE.Mesh(
     new THREE.CubeGeometry(5, 5, 5),
     new THREE.MeshLambertMaterial({ map: texture, color: 0xff0000 })
@@ -139,12 +139,12 @@ camera.lookAt(new THREE.Vector3(0, 0, 0))
 scene.add(camera)
 
 const imgs = [
-  'http://p0.qhimg.com/t0149eca9091f0310d4.png',
-  'http://p9.qhimg.com/t01cf3db281ab68c017.png',
-  'http://p2.qhimg.com/t01df13d2d7a7072014.png',
-  'http://p0.qhimg.com/t010c418274f4f4e1e5.png',
-  'http://p8.qhimg.com/t01fedab8bbddf9a2c6.png',
-  'http://p4.qhimg.com/t014f9eb6d7ca02742a.png'
+  'https://p2.ssl.qhimg.com/t0149eca9091f0310d4.png',
+  'https://p1.ssl.qhimg.com/t01cf3db281ab68c017.png',
+  'https://p4.ssl.qhimg.com/t01df13d2d7a7072014.png',
+  'https://p0.ssl.qhimg.com/t010c418274f4f4e1e5.png',
+  'https://p0.ssl.qhimg.com/t01fedab8bbddf9a2c6.png',
+  'https://p4.ssl.qhimg.com/t014f9eb6d7ca02742a.png'
 ]
 
 const loader = new THREE.TextureLoader()
@@ -181,7 +181,7 @@ Promise.all(imgs.map(loadTexture)).then(textures => {
 
 重复纹理：
 
-demo 中使用的图片为：<img src="http://p0.qhimg.com/t019e99d7457920c421.png" alt="chess">
+demo 中使用的图片为：<img src="https://p0.ssl.qhimg.com/t019e99d7457920c421.png" alt="chess">
 
 :::demo
 
@@ -198,7 +198,7 @@ camera.position.set(0, 0, 30)
 scene.add(camera)
 
 const loader = new THREE.TextureLoader()
-loader.load('http://p0.qhimg.com/t019e99d7457920c421.png', texture => {
+loader.load('https://p0.ssl.qhimg.com/t019e99d7457920c421.png', texture => {
   texture.wrapS = texture.wrapT = THREE.RepeatWrapping
   texture.repeat.set(4, 4)
 

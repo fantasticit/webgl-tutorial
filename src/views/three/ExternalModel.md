@@ -44,7 +44,7 @@ scene.add(light)
 const objLoader = new THREE.OBJLoader()
 
 objLoader.load(
-  `http://dpxr-graph-bed.oss-cn-beijing.aliyuncs.com/port.obj`,
+  `https://dpxr-graph-bed.oss-cn-beijing.aliyuncs.com/port.obj`,
   obj => {
     obj.traverse(function(child) {
       if (child instanceof THREE.Mesh) {
@@ -96,7 +96,7 @@ scene.add(light)
 const objLoader = new THREE.OBJLoader()
 
 objLoader.load(
-  `http://dpxr-graph-bed.oss-cn-beijing.aliyuncs.com/port.obj`,
+  `https://dpxr-graph-bed.oss-cn-beijing.aliyuncs.com/port.obj`,
   obj => {
     obj.traverse(function(child) {
       if (child instanceof THREE.Mesh) {
@@ -148,7 +148,7 @@ scene.add(light)
 
 const mtlLoader = new THREE.MTLLoader()
 mtlLoader.load(
-  `http://dpxr-graph-bed.oss-cn-beijing.aliyuncs.com/port.mtl`,
+  `https://dpxr-graph-bed.oss-cn-beijing.aliyuncs.com/port.mtl`,
   materials => {
     materials.preload()
 
@@ -156,7 +156,7 @@ mtlLoader.load(
     objLoader.setMaterials(materials)
 
     objLoader.load(
-      `http://dpxr-graph-bed.oss-cn-beijing.aliyuncs.com/port.obj`,
+      `https://dpxr-graph-bed.oss-cn-beijing.aliyuncs.com/port.obj`,
       obj => {
         if (obj.children.length) {
           obj = obj.children[0]

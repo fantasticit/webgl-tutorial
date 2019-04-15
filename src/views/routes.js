@@ -46,7 +46,7 @@ export default [
   },
 
   {
-    title: 'THREE.js'
+    title: 'Three.js'
   },
 
   {

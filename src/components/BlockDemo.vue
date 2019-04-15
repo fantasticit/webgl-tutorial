@@ -103,13 +103,13 @@ export default {
           `<div id="app" style="width: 100%; height: 100%; overflow: hidden">
         <\/div>
         <!-- gl-matrix.js -->
-        <script src=${'http://s7.qhres.com/static/f86dcad79f02c645.js'}><\/script>
+        <script src="https://s3.ssl.qhres.com/static/f86dcad79f02c645.js"><\/script>
         <!-- three.js -->
-        <script src=${'http://s4.qhres.com/static/b31e715a21d393bd.js'}><\/script>
+        <script src="https://cdn.bootcss.com/three.js/r83/three.min.js"><\/script>
         <!-- objLoader.js -->
-        <script src="http://s7.qhres.com/static/88b520aaa76d723b.js"><\/script>
+        <script src="https://s5.ssl.qhres.com/static/88b520aaa76d723b.js"><\/script>
         <!-- MTLLoader.js -->
-        <script src="http://s6.qhres.com/static/c5f4a58a44d0982f.js"><\/script>
+        <script src="https://s0.ssl.qhres.com/static/c5f4a58a44d0982f.js"><\/script>
         <!-- OBJMTLLoader.js -->
         
         <script>${this.editor.getValue()}<\/script>`

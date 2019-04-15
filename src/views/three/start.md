@@ -50,7 +50,7 @@ console.log(scene)
 
 在 `WebGL` 和 `three.js` 中坐标系都是右手坐标系，看起来就像：
 
-![左右手坐标系](http://p5.qhimg.com/t012cf9ff02e5927c02.jpg)
+![左右手坐标系](https://p5.ssl.qhimg.com/t012cf9ff02e5927c02.jpg)
 
 ```javascript
 const camera = new THREE.PerspectiveCamera(45, 4 / 3, 1, 1000)

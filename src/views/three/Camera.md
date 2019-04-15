@@ -9,7 +9,7 @@
 
 透视投影照相机的作用类似人眼在真实世界中看到的『近大远小』的效果（如下图 a）;而正交投影照相机的作用类似在数学几何中的效果，对于三维空间中平行的线，投影到二维空间也一定平行（如下图 b），这样就不会因投影而改变物体比例。
 
-![正交投影与透视投影](http://p0.qhimg.com/t0129a7691a270841fc.png)
+![正交投影与透视投影](https://p0.ssl.qhimg.com/t0129a7691a270841fc.png)
 
 ## 3. 正交投影照相机
 
@@ -23,7 +23,7 @@ new THREE.OrthographicCamera(left, right, top, bottom, near, far)
 
 为了保证照相机的横竖比例，需要满足: `canvas.width / canvas.height = (right - left) / (top - bottom)`。
 
-![正交投影照相机](http://p4.qhimg.com/t01143e1ece584883fc.png)
+![正交投影照相机](https://p0.ssl.qhimg.com/t01143e1ece584883fc.png)
 
 :::demo
 
@@ -105,7 +105,7 @@ new THREE.OrthographicCamera(fov, aspect, near, far)
 这 6 个参数分别代表正交投影照相机拍摄到的空间的 6 个面的位置，这 6 个面刚好围成一个长方体，称其为 **场景体（frustum）**。只有在场景体内部的物体才可以显示到屏幕上，场景体之外的物体会被裁剪掉。
 
 为了保证照相机的横竖比例，需要满足: `canvas.width / canvas.height = (right - left) / (top - bottom)`。
-![透视投影照相机](http://p1.qhimg.com/t01ed4da0ebc97fa520.jpg)
+![透视投影照相机](https://p3.ssl.qhimg.com/t01ed4da0ebc97fa520.jpg)
 
 :::demo
 
