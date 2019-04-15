@@ -1,4 +1,4 @@
-# 初识 WebGL
+# 初始化 WebGL
 
 为了使用 WebGL 进行 3D 渲染，需要一个 canvas 元素，然后使用该元素初始化 WebGL 上下文。
 

@@ -5,14 +5,44 @@ export default [
 
   {
     path: '/webgl',
-    title: '初识 WebGL',
-    component: () => import('./webgl/start.md')
+    title: '初始化',
+    component: () => import('./webgl/init.md')
   },
 
   {
-    path: '/webgl/2DConent',
-    title: '创建 2D 物体',
-    component: () => import('./webgl/2DContent.md')
+    path: '/webgl/2D',
+    title: '2D 物体',
+    component: () => import('./webgl/2D.md')
+  },
+
+  {
+    path: '/webgl/color',
+    title: '颜色',
+    component: () => import('./webgl/color.md')
+  },
+
+  {
+    path: '/webgl/animate',
+    title: '动画',
+    component: () => import('./webgl/animate.md')
+  },
+
+  {
+    path: '/webgl/3D',
+    title: '3D 物体',
+    component: () => import('./webgl/3D.md')
+  },
+
+  {
+    path: '/webgl/texture',
+    title: '纹理',
+    component: () => import('./webgl/texture.md')
+  },
+
+  {
+    path: '/webgl/light',
+    title: '灯光',
+    component: () => import('./webgl/light.md')
   },
 
   {

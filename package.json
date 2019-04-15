@@ -4,13 +4,8 @@
   "description": "A visulization library based on three.js",
   "main": "lib/index.js",
   "scripts": {
-    "start": "npm run dev:demo",
-    "dev:demo": "webpack-dev-server --config ./build/webpack.conf.dev.js",
-    "build": "npm run build:docs && npm run build:chart && echo 'Build successfully!'",
-    "build:chart": "rimraf lib && cross-env NODE_ENV=production webpack --config ./build/webpack.conf.prod.chart.js",
-    "build:docs": "rimraf docs && cross-env NODE_ENV=production webpack --config ./build/webpack.conf.prod.docs.js",
-    "precommit": "npm run lint",
-    "lint": "eslint src/**/*.js"
+    "start": "webpack-dev-server --config ./build/webpack.conf.dev.js",
+    "build": "rimraf docs && cross-env NODE_ENV=production webpack --config ./build/webpack.conf.prod.js"
   },
   "author": "justemit",
   "license": "MIT",

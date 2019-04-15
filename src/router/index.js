@@ -7,5 +7,12 @@ Vue.use(Router)
 
 export default new Router({
   mode: 'hash',
-  routes: routes.filter(route => route.path)
+  routes: [
+    {
+      path: '/',
+      component: () => import('../views/home.vue')
+    },
+
+    ...routes.filter(route => route.path)
+  ]
 })

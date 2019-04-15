@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <aside :class="showMenu ? 'is-show' : ''">
-      <h2>WebGL 入门笔记</h2>
+      <h2>
+        <router-link to="/">WebGL 入门笔记</router-link>
+      </h2>
       <nav>
         <ul>
           <li v-for="(route, i) in routes" :key="i">
