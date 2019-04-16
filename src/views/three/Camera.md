@@ -112,20 +112,63 @@ new THREE.OrthographicCamera(fov, aspect, near, far)
 ```javascript
 const renderer = new THREE.WebGLRenderer()
 renderer.setSize(400, 300)
+
+//告诉渲染器需要阴影效果
+renderer.shadowMap.enabled = true
+renderer.shadowMap.type = THREE.PCFSoftShadowMap
+
 document.querySelector('#app').appendChild(renderer.domElement)
 
 const scene = new THREE.Scene()
 
-const camera = new THREE.PerspectiveCamera(60, 400 / 300, 1, 10)
-camera.position.set(2, 2, 3)
+// 照相机
+const camera = new THREE.PerspectiveCamera(30, 400 / 300, 0.1, 400)
+camera.position.set(0, 40, 20)
 camera.lookAt(new THREE.Vector3(0, 0, 0))
 scene.add(camera)
 
-const cube = new THREE.Mesh(
-  new THREE.CubeGeometry(1, 1, 1),
-  new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: true })
-)
-scene.add(cube)
+// 光照
+const pointLight = new THREE.PointLight(0xffffff)
+pointLight.position.set(16, 12, -8)
+
+// 开启平行光的阴影投射
+pointLight.castShadow = true
+
+scene.add(pointLight)
+
+const ambientLight = new THREE.AmbientLight(0x111111)
+
+scene.add(ambientLight)
+
+{
+  // 底部平面
+  const plane = new THREE.Mesh(
+    new THREE.PlaneGeometry(20, 20),
+    new THREE.MeshLambertMaterial({ color: 0xaaaaaa })
+  )
+  plane.position.y = -2
+  plane.rotation.x = -0.6 * Math.PI
+  plane.receiveShadow = true
+  scene.add(plane)
+
+  // 球体
+  const sphere = new THREE.Mesh(
+    new THREE.SphereGeometry(2, 80, 80),
+    new THREE.MeshPhongMaterial({ color: 0xfe02ef })
+  )
+  sphere.position.x = -3
+  sphere.castShadow = true
+  scene.add(sphere)
+
+  const cube = new THREE.Mesh(
+    new THREE.CubeGeometry(2, 2, 2),
+    new THREE.MeshLambertMaterial({ color: 0x00ffff })
+  )
+  cube.position.x = 4
+  cube.position.y = 0
+  cube.castShadow = true
+  scene.add(cube)
+}
 
 renderer.render(scene, camera)
 ```

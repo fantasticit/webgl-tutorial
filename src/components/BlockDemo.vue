@@ -106,12 +106,14 @@ export default {
         <script src="https://s3.ssl.qhres.com/static/f86dcad79f02c645.js"><\/script>
         <!-- three.js -->
         <script src="https://s2.ssl.qhres.com/static/b31e715a21d393bd.js"><\/script>
+        <!-- dat-gui.js -->
+        <script src="https://s2.ssl.qhres.com/static/61d61350235f0b66.js"><\/script>
         <!-- objLoader.js -->
         <script src="https://s5.ssl.qhres.com/static/88b520aaa76d723b.js"><\/script>
         <!-- MTLLoader.js -->
         <script src="https://s0.ssl.qhres.com/static/c5f4a58a44d0982f.js"><\/script>
-        <!-- OBJMTLLoader.js -->
-        
+        <!-- GLTFLoader.js -->
+        <script src="https://s2.ssl.qhres.com/static/4f2287780565a781.js"><\/script>
         <script>${this.editor.getValue()}<\/script>`
         )
       } catch (e) {

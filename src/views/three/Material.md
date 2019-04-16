@@ -2,6 +2,158 @@
 
 材质是独立于物体顶点信息之外的与渲染效果相关的属性。通过设置材质可以改变物体的颜色、纹理贴图、光照模式等。
 
+:::demo
+
+```javascript
+const renderer = new THREE.WebGLRenderer()
+renderer.setSize(window.innerWidth, window.innerHeight)
+document.querySelector('#app').appendChild(renderer.domElement)
+
+// 0. 初始化场景
+const scene = new THREE.Scene()
+
+// 1. 初始化相机
+const camera = new THREE.PerspectiveCamera(
+  45,
+  window.innerWidth / window.innerHeight,
+  0.1,
+  200
+)
+camera.position.set(0, 0, 150)
+scene.add(camera)
+
+// 2, 创建灯光
+const light = new THREE.DirectionalLight(0xffffff) // 白色平行光
+light.position.set(20, 50, 50)
+scene.add(light)
+
+scene.add(new THREE.AmbientLight(0x333322)) // 全局环境光
+
+let box = null
+let circle = null
+let cone = null
+let cylinder = null
+let sphere = null
+let plane = null
+let torus = null
+let line = null
+let curveLine = null
+
+// 3. 创建物体
+{
+  const material = new THREE.MeshNormalMaterial()
+
+  // 立方体
+  box = new THREE.Mesh(
+    new THREE.BoxGeometry(5, 5, 5),
+    new THREE.MeshLambertMaterial({ color: 0x00ff43 })
+  )
+  box.position.set(-50, 20, 0)
+  scene.add(box)
+
+  // 圆
+  circle = new THREE.Mesh(new THREE.CircleGeometry(5, 32), material)
+  circle.position.set(-20, 20, 0)
+  scene.add(circle)
+
+  // 圆锥
+  cone = new THREE.Mesh(
+    new THREE.ConeGeometry(5, 20, 32),
+    new THREE.MeshPhongMaterial({ color: 0xf0f4ed })
+  )
+  cone.position.set(20, 20, 0)
+  scene.add(cone)
+
+  // 圆柱
+  cylinder = new THREE.Mesh(
+    new THREE.CylinderGeometry(5, 5, 20, 32),
+    new THREE.MeshPhongMaterial({ color: 0x23f4cb })
+  )
+  cylinder.position.set(50, 20, 0)
+  scene.add(cylinder)
+
+  // 球
+  sphere = new THREE.Mesh(new THREE.SphereGeometry(5, 32, 32), material)
+  sphere.position.set(-35, -20, 0)
+  scene.add(sphere)
+
+  // 平面
+  plane = new THREE.Mesh(new THREE.PlaneGeometry(5, 5), material)
+  plane.position.set(0, -20, 0)
+  scene.add(plane)
+
+  // 圆环
+  torus = new THREE.Mesh(
+    new THREE.TorusGeometry(10, 3, 16, 100),
+    new THREE.MeshPhongMaterial({ color: 0x48cefa })
+  )
+  torus.position.set(35, -20, 0)
+  scene.add(torus)
+
+  const points = [
+    new THREE.Vector3(-10, 0, 5),
+    new THREE.Vector3(-5, 15, 5),
+    new THREE.Vector3(20, 15, -5),
+    new THREE.Vector3(10, 0, 5)
+  ]
+
+  // 直线
+  {
+    const lineGeometry = new THREE.Geometry()
+    lineGeometry.setFromPoints(points)
+    line = new THREE.Line(
+      lineGeometry,
+      new THREE.LineBasicMaterial({ color: 0x00ff00 })
+    )
+    line.position.set(-65, -30, 0)
+    scene.add(line)
+  }
+
+  // 曲线
+  {
+    const curve = new THREE.CatmullRomCurve3(points)
+    const points2 = curve.getPoints(50) // 获取当前曲线分成 50 段后的所有顶点
+    const curveGeometry = new THREE.BufferGeometry().setFromPoints(points2)
+    curveLine = new THREE.Line(
+      curveGeometry,
+      new THREE.LineDashedMaterial({ color: 0xff0000 })
+    )
+    curveLine.computeLineDistances() // 需要重新计算位置才能显示出虚线
+    curveLine.position.set(-65, -30, 0)
+    scene.add(curveLine)
+  }
+}
+
+// 4. 渲染（动画）
+let rotation = 0
+
+function animate() {
+  rotation += 0.01
+
+  void [
+    box,
+    circle,
+    cone,
+    cylinder,
+    sphere,
+    plane,
+    torus,
+    line,
+    curveLine
+  ].forEach(mesh => {
+    mesh.rotation.set(rotation, rotation, rotation)
+  })
+
+  renderer.render(scene, camera)
+
+  requestAnimationFrame(animate)
+}
+
+animate()
+```
+
+:::
+
 ## 1. 基本材质
 
 使用基本材质的物体，渲染后物体的颜色始终为该材质的颜色，而不会由于光照产生明暗、阴影效果。其构造函数为：

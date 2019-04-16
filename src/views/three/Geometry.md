@@ -2,6 +2,94 @@
 
 创建物体时，需要传入 2 个参数，一个是几何形状（Geometry），另一个是材质（Material）。
 
+:::demo
+
+```javascript
+const renderer = new THREE.WebGLRenderer()
+renderer.setSize(window.innerWidth, window.innerHeight)
+document.querySelector('#app').appendChild(renderer.domElement)
+
+// 0. 初始化场景
+const scene = new THREE.Scene()
+
+// 1. 初始化相机
+const camera = new THREE.PerspectiveCamera(
+  45,
+  window.innerWidth / window.innerHeight,
+  0.1,
+  200
+)
+camera.position.set(0, 0, 150)
+scene.add(camera)
+
+let box = null
+let circle = null
+let cone = null
+let cylinder = null
+let sphere = null
+let plane = null
+let torus = null
+
+// 2. 创建物体
+{
+  const material = new THREE.MeshNormalMaterial()
+
+  // 立方体
+  box = new THREE.Mesh(new THREE.BoxGeometry(5, 5, 5), material)
+  box.position.set(-50, 20, 0)
+  scene.add(box)
+
+  // 圆
+  circle = new THREE.Mesh(new THREE.CircleGeometry(5, 32), material)
+  circle.position.set(-20, 20, 0)
+  scene.add(circle)
+
+  // 圆锥
+  cone = new THREE.Mesh(new THREE.ConeGeometry(5, 20, 32), material)
+  cone.position.set(20, 20, 0)
+  scene.add(cone)
+
+  // 圆柱
+  cylinder = new THREE.Mesh(new THREE.CylinderGeometry(5, 5, 20, 32), material)
+  cylinder.position.set(50, 20, 0)
+  scene.add(cylinder)
+
+  // 球
+  sphere = new THREE.Mesh(new THREE.SphereGeometry(5, 32, 32), material)
+  sphere.position.set(-35, -20, 0)
+  scene.add(sphere)
+
+  // 平面
+  plane = new THREE.Mesh(new THREE.PlaneGeometry(5, 5), material)
+  plane.position.set(0, -20, 0)
+  scene.add(plane)
+
+  // 圆环
+  torus = new THREE.Mesh(new THREE.TorusGeometry(10, 3, 16, 100), material)
+  torus.position.set(35, -20, 0)
+  scene.add(torus)
+}
+
+// 3. 渲染（动画）
+let rotation = 0
+
+function animate() {
+  rotation += 0.01
+
+  void [box, circle, cone, cylinder, sphere, plane, torus].forEach(mesh => {
+    mesh.rotation.set(rotation, rotation, rotation)
+  })
+
+  renderer.render(scene, camera)
+
+  requestAnimationFrame(animate)
+}
+
+animate()
+```
+
+:::
+
 ## 基本几何形状
 
 ### 立方体

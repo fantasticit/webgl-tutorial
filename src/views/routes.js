@@ -80,14 +80,20 @@ export default [
   },
 
   {
+    path: '/three/LightAndShadow',
+    title: '光与影',
+    component: () => import('./three/LightAndShadow.md')
+  },
+
+  {
     path: '/three/externalModel',
     title: '外部模型',
     component: () => import('./three/externalModel.md')
   },
 
   {
-    path: '/three/LightAndShadow',
-    title: '光与影',
-    component: () => import('./three/LightAndShadow.md')
+    path: '/three/interaction',
+    title: '场景交互',
+    component: () => import('./three/Interaction.md')
   }
 ]

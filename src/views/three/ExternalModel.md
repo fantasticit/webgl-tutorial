@@ -179,3 +179,67 @@ mtlLoader.load(
 ```
 
 :::
+
+:::demo
+
+```javascript
+const renderer = new THREE.WebGLRenderer({ antialias: true })
+renderer.setSize(400, 300)
+document.querySelector('#app').appendChild(renderer.domElement)
+
+renderer.shadowMap.enable = true
+renderer.shadowMap.type = THREE.PCFSoftShadowMap
+
+// 初始化场景
+const scene = new THREE.Scene()
+
+// 初始化相机
+const camera = new THREE.PerspectiveCamera(45, 400 / 300, 0.1, 200)
+camera.position.set(0, 20, 20)
+camera.lookAt(new THREE.Vector3(0, 0, 0))
+scene.add(camera)
+
+// 添加光照
+const ambientLight = new THREE.AmbientLight(0xffffff)
+scene.add(ambientLight)
+
+const directionalLight = new THREE.DirectionalLight(0xffffff)
+directionalLight.position.set(10, 20, 30)
+
+directionalLight.shadow.camera.near = 1
+directionalLight.shadow.camera.far = 100
+directionalLight.shadow.camera.left = -20
+directionalLight.shadow.camera.right = 20
+directionalLight.shadow.camera.top = 15
+directionalLight.shadow.camera.bottom = -15
+directionalLight.shadow.mapSize.width = 1024
+directionalLight.shadow.mapSize.height = 1024
+
+directionalLight.castShadow = true
+scene.add(directionalLight)
+
+// 添加物体
+{
+  const plane = new THREE.Mesh(
+    new THREE.PlaneGeometry(20, 20),
+    new THREE.MeshLambertMaterial({ color: 0xaaaaaa, side: THREE.DoubleSide })
+  )
+  plane.rotation.x = -0.6 * Math.PI
+  plane.receiveShadow = true
+  scene.add(plane)
+
+  const loader = new THREE.GLTFLoader()
+
+  loader.load(
+    'https://dpxr-graph-bed.oss-cn-beijing.aliyuncs.com/undefined.gltf',
+    gltf => {
+      gltf.scene.scale.set(0.05, 0.05, 0.05)
+      scene.add(gltf.scene)
+
+      renderer.render(scene, camera)
+    }
+  )
+}
+```
+
+:::

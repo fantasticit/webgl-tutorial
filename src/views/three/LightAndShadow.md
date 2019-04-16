@@ -59,33 +59,68 @@ renderer.render(scene, camera)
 ```javascript
 const renderer = new THREE.WebGLRenderer()
 renderer.setSize(400, 300)
+
+//告诉渲染器需要阴影效果
+renderer.shadowMap.enabled = true
+renderer.shadowMap.type = THREE.PCFSoftShadowMap
+
 document.querySelector('#app').appendChild(renderer.domElement)
 
 const scene = new THREE.Scene()
 
-const camera = new THREE.OrthographicCamera(-5, 5, 3.75, -3.75, 0.1, 100)
-camera.position.set(5, 15, 25)
+// 照相机
+const camera = new THREE.PerspectiveCamera(45, 400 / 300, 0.1, 400)
+camera.position.set(0, 40, 20)
 camera.lookAt(new THREE.Vector3(0, 0, 0))
 scene.add(camera)
 
-const light = new THREE.PointLight(0xffcc00, 100)
-light.position.set(-4, 3, 3)
-scene.add(light)
+// 光照
+const pointLight = new THREE.PointLight(0xffffff)
+pointLight.position.set(16, 12, -8)
 
-const cube1 = new THREE.Mesh(
-  new THREE.CubeGeometry(2, 2, 2),
-  new THREE.MeshLambertMaterial({ color: 0x00ff00 })
-)
-cube1.position.x = -3
+// 开启平行光的阴影投射
+pointLight.castShadow = true
 
-scene.add(cube1)
+scene.add(pointLight)
 
-const cube2 = new THREE.Mesh(
-  new THREE.CubeGeometry(2, 2, 2),
-  new THREE.MeshLambertMaterial({ color: 0xfff000 })
-)
-cube2.position.x = 3
-scene.add(cube2)
+//添加灯光辅助
+const debug = new THREE.PointLightHelper(pointLight)
+debug.name = 'debug'
+scene.add(debug)
+
+const ambientLight = new THREE.AmbientLight(0x111111)
+
+scene.add(ambientLight)
+
+{
+  // 底部平面
+  const plane = new THREE.Mesh(
+    new THREE.PlaneGeometry(20, 20),
+    new THREE.MeshLambertMaterial({ color: 0xaaaaaa })
+  )
+  plane.position.y = -2
+  plane.rotation.x = -0.6 * Math.PI
+  plane.receiveShadow = true
+  scene.add(plane)
+
+  // 球体
+  const sphere = new THREE.Mesh(
+    new THREE.SphereGeometry(2, 80, 80),
+    new THREE.MeshPhongMaterial({ color: 0xfe02ef })
+  )
+  sphere.position.x = -3
+  sphere.castShadow = true
+  scene.add(sphere)
+
+  const cube = new THREE.Mesh(
+    new THREE.CubeGeometry(2, 2, 2),
+    new THREE.MeshLambertMaterial({ color: 0x00ffff })
+  )
+  cube.position.x = 4
+  cube.position.y = 0
+  cube.castShadow = true
+  scene.add(cube)
+}
 
 renderer.render(scene, camera)
 ```
@@ -94,7 +129,7 @@ renderer.render(scene, camera)
 
 ## 3. 平行光
 
-常常会被太阳光当做平行光，因为相对地球上物体的尺度而言，太阳距离地球的距离足够远。对于任意平行的平面，平行光照射的亮度都是相同的，而与平面所在位置无关。
+常常会把太阳光当做平行光，因为相对地球上物体的尺度而言，太阳距离地球的距离足够远。对于任意平行的平面，平行光照射的亮度都是相同的，而与平面所在位置无关。
 
 平行光的构造函数为：`new THREE.DirectionalLight(hex, intensity)`。
 
@@ -103,40 +138,167 @@ renderer.render(scene, camera)
 ```javascript
 const renderer = new THREE.WebGLRenderer()
 renderer.setSize(400, 300)
+
+//告诉渲染器需要阴影效果
+renderer.shadowMap.enabled = true
+renderer.shadowMap.type = THREE.PCFSoftShadowMap
+
 document.querySelector('#app').appendChild(renderer.domElement)
 
 const scene = new THREE.Scene()
 
-const camera = new THREE.OrthographicCamera(-5, 5, 3.75, -3.75, 0.1, 100)
-camera.position.set(5, 15, 25)
+// 照相机
+const camera = new THREE.PerspectiveCamera(45, 400 / 300, 0.1, 400)
+camera.position.set(0, 40, 30)
 camera.lookAt(new THREE.Vector3(0, 0, 0))
 scene.add(camera)
 
-const light = new THREE.DirectionalLight(0xffcc00, 1)
-light.position.set(1, 3, 3)
-scene.add(light)
+// 光照
+const directionalLight = new THREE.DirectionalLight(0xffffff)
+directionalLight.position.set(16, 12, -8)
 
-const cube1 = new THREE.Mesh(
-  new THREE.CubeGeometry(2, 2, 2),
-  new THREE.MeshLambertMaterial({ color: 0x00ff00 })
-)
-cube1.position.x = -3
+// 开启平行光的阴影投射
+directionalLight.castShadow = true
 
-scene.add(cube1)
+// 光照阴影
+directionalLight.shadow.camera.near = 10
+directionalLight.shadow.camera.far = 30
+directionalLight.shadow.camera.left = -8
+directionalLight.shadow.camera.right = 8
+directionalLight.shadow.camera.top = 8
+directionalLight.shadow.camera.bottom = -8
 
-const cube2 = new THREE.Mesh(
-  new THREE.CubeGeometry(2, 2, 2),
-  new THREE.MeshLambertMaterial({ color: 0xfff000 })
-)
-cube2.position.x = 3
-scene.add(cube2)
+// 阴影密度
+directionalLight.shadow.mapSize.width = 200
+directionalLight.shadow.mapSize.height = 200
+
+scene.add(directionalLight)
+
+//添加灯光辅助
+const debug = new THREE.CameraHelper(directionalLight.shadow.camera)
+debug.name = 'debug'
+scene.add(debug)
+
+const ambientLight = new THREE.AmbientLight(0x111111)
+
+scene.add(ambientLight)
+
+{
+  // 底部平面
+  const plane = new THREE.Mesh(
+    new THREE.PlaneGeometry(20, 20),
+    new THREE.MeshLambertMaterial({ color: 0xaaaaaa })
+  )
+  plane.position.y = -2
+  plane.rotation.x = -0.6 * Math.PI
+  plane.receiveShadow = true
+  scene.add(plane)
+
+  // 球体
+  const sphere = new THREE.Mesh(
+    new THREE.SphereGeometry(2, 80, 80),
+    new THREE.MeshPhongMaterial({ color: 0xfe02ef })
+  )
+  sphere.position.y = 2
+  sphere.castShadow = true
+  directionalLight.target = sphere
+  scene.add(sphere)
+
+  const cube = new THREE.Mesh(
+    new THREE.CubeGeometry(2, 2, 2),
+    new THREE.MeshLambertMaterial({ color: 0x00ffff })
+  )
+  cube.position.x = 4
+  cube.position.y = 0
+  cube.castShadow = true
+  scene.add(cube)
+}
+
+function animate() {
+  renderer.render(scene, camera)
+
+  requestAnimationFrame(animate)
+}
+
+animate()
+```
+
+:::
+
+## 4. 户外光
+
+使用 `THREE.HemisphereLight` 可以创建更加贴近自然的户外光照效果。户外光不会产生阴影。
+
+如果不使用 `THREE.HemisphereLight` ，要模拟户外光照，一般是创建一个 `THREE.DirectionalLight` 来模拟太阳光，然后添加 `THREE.AmbientLight` 来为场景提供基础光照。但是这样的光照是不够自然的，因为在户外，并不是所有的光源都来自上方（很多事来自大气的散射以及其他物体的反射）。`THREE.HemisphereLight` 为获得更加自然的户外光照提供了一个简单的方式。
+
+属性介绍：
+
+- `color`: 从天空发出的光线的颜色
+- `groundColor`：从地面发出的光线的颜色
+- `intensity`: 光照强度
+- `position`: 光源在场景中的位置，默认 `(0, 100, 0)`
+- `visible`: 默认 `true`，控制光源是否可见
+
+:::demo
+
+```javascript
+const renderer = new THREE.WebGLRenderer()
+renderer.setSize(400, 300)
+document.querySelector('#app').appendChild(renderer.domElement)
+
+// 开启渲染器阴影效果
+renderer.shadowMap.enable = true
+renderer.shadowMap.type = THREE.PCFSoftShadowMap
+
+// 初始化场景
+const scene = new THREE.Scene()
+
+// 照相机
+const camera = new THREE.PerspectiveCamera(45, 400 / 300, 0.1, 200)
+camera.position.set(0, 40, 20)
+camera.lookAt(new THREE.Vector3(0, 0, 0))
+scene.add(camera)
+
+// 光照
+const ambientLight = new THREE.AmbientLight(0x111111)
+scene.add(ambientLight)
+
+const hemisphereLight = new THREE.HemisphereLight(0xffff, 0xff0000, 1)
+scene.add(hemisphereLight)
+
+// 添加物体
+{
+  const plane = new THREE.Mesh(
+    new THREE.PlaneGeometry(20, 20),
+    new THREE.MeshLambertMaterial({ color: 0xaaaaaa })
+  )
+  plane.receiveShadow = true
+  plane.rotation.x = -0.7 * Math.PI
+  scene.add(plane)
+
+  const sphere = new THREE.Mesh(
+    new THREE.SphereGeometry(2, 20, 20),
+    new THREE.MeshPhongMaterial({ color: 0xffffff })
+  )
+  sphere.castShadow = true
+  sphere.position.set(-2, 16, 0)
+  scene.add(sphere)
+
+  const cube = new THREE.Mesh(
+    new THREE.CubeGeometry(2, 2, 2),
+    new THREE.MeshLambertMaterial({ color: 0x00ec4f })
+  )
+  cube.position.set(2, 0, -5)
+  cube.castShadow = true
+  scene.add(cube)
+}
 
 renderer.render(scene, camera)
 ```
 
 :::
 
-## 4. 聚光灯
+## 5. 聚光灯
 
 官网上对聚光灯的定义为：`A point light that can cast shadow in one direction.`。
 
@@ -156,7 +318,7 @@ light.position.set(x1, y1, z1)
 light.targte.position.set(x2, y2, z2)
 ```
 
-除了设置 `light.target.position` 外，如果要让聚光灯跟着某物体一起动，可以指定 `targer` 为该物体。
+除了设置 `light.target.position` 外，如果要让聚光灯跟着某物体一起动，可以指定 `target` 为该物体。
 
 ```javascript
 light.target = cube
@@ -198,56 +360,75 @@ renderer.render(scene, camera)
 ```javascript
 const renderer = new THREE.WebGLRenderer()
 renderer.setSize(400, 300)
+
+//告诉渲染器需要阴影效果
+renderer.shadowMap.enabled = true
+renderer.shadowMap.type = THREE.PCFSoftShadowMap
+
 document.querySelector('#app').appendChild(renderer.domElement)
 
 const scene = new THREE.Scene()
 
-const camera = new THREE.OrthographicCamera(-5, 5, 3.75, -3.75, 0.1, 100)
-camera.position.set(10, 15, 25)
+// 照相机
+const camera = new THREE.PerspectiveCamera(45, 400 / 300, 0.1, 400)
+camera.position.set(0, 40, 30)
 camera.lookAt(new THREE.Vector3(0, 0, 0))
 scene.add(camera)
 
-// 绘底部平面
-const plane = new THREE.Mesh(
-  new THREE.PlaneGeometry(8, 8, 12, 12),
-  new THREE.MeshLambertMaterial({ color: 0xcccccc })
-)
-plane.rotation.x = -Math.PI / 2
-plane.position.y = -1
-scene.add(plane)
+// 光照
+const spotLight = new THREE.SpotLight(0xffffff, 2)
+spotLight.position.set(16, 12, -10)
+spotLight.angle = Math.PI / 6
+spotLight.distance = 100
 
-// 绘制立方体
-const cube = new THREE.Mesh(
-  new THREE.CubeGeometry(1, 1, 1),
-  new THREE.MeshLambertMaterial({ color: 0xff0000 })
-)
-scene.add(cube)
+// 开启平行光的阴影投射
+spotLight.castShadow = true
 
-// 环境光
-const ambient = new THREE.AmbientLight(0xffffff)
-scene.add(ambient)
+scene.add(spotLight)
 
-// 聚光灯
-const light = new THREE.SpotLight(0xff00f0, 1, 800, Math.PI / 6, 25)
-light.position.set(2, 2, 3)
-light.target = cube
-scene.add(light)
+//添加灯光辅助
+const debug = new THREE.CameraHelper(spotLight.shadow.camera)
+debug.name = 'debug'
+scene.add(debug)
+const spotLightHelper = new THREE.SpotLightHelper(spotLight)
+scene.add(spotLightHelper)
 
-let alpha = 0
+const ambientLight = new THREE.AmbientLight(0x111111)
 
-const animate = () => {
-  alpha += 0.01
-  if (alpha > Math.PI * 2) {
-    alpha -= Math.PI * 2
-  }
+scene.add(ambientLight)
 
-  cube.position.set(2 * Math.cos(alpha), 0, 2 * Math.sin(alpha))
+{
+  // 底部平面
+  const plane = new THREE.Mesh(
+    new THREE.PlaneGeometry(20, 20),
+    new THREE.MeshLambertMaterial({ color: 0xaaaaaa })
+  )
+  plane.position.y = -2
+  plane.rotation.x = -0.6 * Math.PI
+  plane.receiveShadow = true
+  scene.add(plane)
 
-  renderer.render(scene, camera)
-  requestAnimationFrame(animate)
+  // 球体
+  const sphere = new THREE.Mesh(
+    new THREE.SphereGeometry(2, 80, 80),
+    new THREE.MeshPhongMaterial({ color: 0xfe02ef })
+  )
+  sphere.position.y = 2
+  sphere.castShadow = true
+  spotLight.target = sphere
+  scene.add(sphere)
+
+  const cube = new THREE.Mesh(
+    new THREE.CubeGeometry(2, 2, 2),
+    new THREE.MeshLambertMaterial({ color: 0x00ffff })
+  )
+  cube.position.x = 4
+  cube.position.y = 0
+  cube.castShadow = true
+  scene.add(cube)
 }
 
-animate()
+renderer.render(scene, camera)
 ```
 
 :::
@@ -262,13 +443,6 @@ animate()
 
 <p></p>
 
-<del>
-比如场景中一个平面上有一个正方体，想要让聚光灯照射在正方体上，产生的阴影投射在平面上，那么就需要对聚光灯和正方体调用 `castShadow = true`，对于平面调用`receiveShadow = true` 。
-以上就是产生阴影效果的必要步骤了，不过通常还需要设置光源的阴影相关属性，才能正确显示出阴影效果。
-对于聚光灯，需要设置 `shadowCameraNear`、`shadowCameraFar`、`shadowCameraFov` 三个值，类比我们在第二章学到的透视投影照相机，只有介于 `shadowCameraNear`与 `shadowCameraFar`之间的物体将产生阴影，`shadowCameraFov` 表示张角。
-对于平行光，需要设置 `shadowCameraNear`、`shadowCameraFar`、`shadowCameraLeft`、`shadowCameraRight`、`shadowCameraTop` 以及 `shadowCameraBottom` 六个值，相当于正交投影照相机的六个面。同样，只有在这六个面围成的长方体内的物体才会产生阴影效果。
-</del>
-
 :::demo
 
 ```javascript
@@ -276,7 +450,8 @@ const renderer = new THREE.WebGLRenderer()
 renderer.setSize(400, 300)
 document.querySelector('#app').appendChild(renderer.domElement)
 
-renderer.shadowMapEnable = true
+renderer.shadowMap.enabled = true
+renderer.shadowMap.type = THREE.PCFSoftShadowMap
 
 const scene = new THREE.Scene()
 
@@ -309,7 +484,7 @@ scene.add(ambient)
 
 // 聚光灯
 const light = new THREE.SpotLight(0x00f0f0, 1, 800, Math.PI / 6, 25)
-light.position.set(2, 2, 3)
+light.position.set(2, 6, 3)
 light.target = cube
 light.castShadow = true
 
@@ -322,6 +497,10 @@ light.shadow.mapSize.width = 1024
 light.shadow.mapSize.height = 1024
 
 scene.add(light)
+
+// 灯光辅助
+const debug = new THREE.CameraHelper(light.shadow.camera)
+scene.add(debug)
 
 let alpha = 0
 
