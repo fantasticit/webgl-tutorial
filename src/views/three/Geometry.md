@@ -363,35 +363,76 @@ const renderer = new THREE.WebGLRenderer()
 renderer.setSize(400, 300)
 document.querySelector('#app').appendChild(renderer.domElement)
 
-const loader = new THREE.FontLoader()
+const scene = new THREE.Scene()
 
-loader.load(
-  'https://dpxr-graph-bed.oss-cn-beijing.aliyuncs.com/helvetiker_regular.typeface.json',
-  font => {
-    const scene = new THREE.Scene()
-    const text = new THREE.Mesh(
-      new THREE.TextGeometry('h e l l o', {
-        font, // 字体，默认 helvetiker，需要引用对应字体文件
-        size: 2, // 字号大小
-        height: 5, // 文字厚度
-        weight: 'normal', // 对应 font-weight
-        style: 'normal', // 对应 font-style
-        curveSegments: 2, // 弧度分段数，可以使文字曲线更加光滑
-        bevelEnabled: true, // 是否使用倒角，边缘处斜切
-        bevelThickness: 0, /// 倒角厚度
-        bevelSize: 0, // 倒角宽度
-        bevelSegments: 0 // 倒角分段数
-      }),
-      new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: true })
+const camera = new THREE.PerspectiveCamera(45, 4 / 3, 1, 100)
+camera.position.set(0, 0, 8)
+camera.lookAt(scene.position)
+
+scene.add(camera)
+
+const light = new THREE.PointLight(0xff0000)
+light.position.set(0, 15, 0)
+scene.add(light)
+
+const skyBoxGeometry = new THREE.CubeGeometry(100, 100, 1)
+const skyBoxMaterial = new THREE.MeshBasicMaterial({
+  color: 0x9999ff,
+  side: THREE.BackSide
+})
+const skyBox = new THREE.Mesh(skyBoxGeometry, skyBoxMaterial)
+scene.fog = new THREE.FogExp2(0x9999ff, 0.00025)
+
+scene.add(skyBox)
+
+new THREE.TextureLoader().load(
+  'https://p0.ssl.qhimg.com/t019e99d7457920c421.png',
+  texture => {
+    texture.wrapS = texture.wrapT = THREE.RepeatWrapping
+    texture.repeat.set(10, 10)
+
+    const floor = new THREE.Mesh(
+      new THREE.PlaneGeometry(6, 6, 10, 10),
+      new THREE.MeshBasicMaterial({ map: texture })
     )
 
-    const camera = new THREE.PerspectiveCamera(120, 4 / 3, 1, 10)
-    camera.position.set(4, 0, 8)
+    floor.position.y = 0
+    floor.rotation.x = -0.4 * Math.PI
+    scene.add(floor)
 
-    scene.add(text)
-    scene.add(camera)
+    new THREE.FontLoader().load(
+      'https://dpxr-graph-bed.oss-cn-beijing.aliyuncs.com/helvetiker_regular.typeface.json',
+      font => {
+        const textGeom = new THREE.TextGeometry('Hello, World!', {
+          size: 0.3, //字号大小，一般为大写字母的高度
+          height: 0.15, //文字的厚度
+          curveSegments: 3, //弧线分段数，使得文字的曲线更加光滑
 
-    renderer.render(scene, camera)
+          font: font, //字体，默认是'helvetiker'，需对应引用的字体文件
+          weight: 'normal', //值为'normal'或'bold'，表示是否加粗
+          style: 'normal', //值为'normal'或'italics'，表示是否斜体
+
+          bevelThickness: 0.01, //倒角厚度
+          bevelSize: 0.02, //倒角宽度
+          bevelEnabled: true //布尔值，是否使用倒角，意为在边缘处斜切
+        })
+
+        const materialFront = new THREE.MeshBasicMaterial({ color: 0xff0000 })
+        const materialSide = new THREE.MeshBasicMaterial({ color: 0x000088 })
+        const materialArray = [materialFront, materialSide]
+        const textMesh = new THREE.Mesh(textGeom, materialArray)
+
+        textGeom.computeBoundingBox()
+        const textWidth =
+          textGeom.boundingBox.max.x - textGeom.boundingBox.min.x
+
+        textMesh.position.set(-0.5 * textWidth, 0.3, 4)
+        textMesh.rotation.x = -0.2 * Math.PI
+        scene.add(textMesh)
+
+        renderer.render(scene, camera)
+      }
+    )
   }
 )
 ```
