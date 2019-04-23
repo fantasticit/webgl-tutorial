@@ -31,6 +31,7 @@
 
     <article class="container">
       <router-view class="markdown-body"></router-view>
+      <Top/>
     </article>
   </div>
 </template>
@@ -38,8 +39,13 @@
 
 <script>
 import routes from './views/routes'
+import Top from './components/Top.vue'
 
 export default {
+  components: {
+    Top
+  },
+
   data() {
     return {
       routes: routes,

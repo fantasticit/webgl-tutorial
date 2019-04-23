@@ -30,12 +30,12 @@ module.exports = {
         }
       ]
     ],
-    afterProcess(vueFile) {
-      // 移除注释
-      return vueFile
-        .replace(/<span class="hljs-comment">([\S\s]*?)<\/span>/gi, '')
-        .trim()
-    },
+    // afterProcess(vueFile) {
+    //   // 移除注释
+    //   return vueFile
+    //     .replace(/<span class="hljs-comment">([\S\s]*?)<\/span>/gi, '')
+    //     .trim()
+    // },
     afterProcessLiveTemplate(template) {
       return `<div class="block-demo__live">${template}</div>`
     }
