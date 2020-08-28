@@ -1,6 +1,6 @@
 # WebGL 入门笔记
 
-[在线网址](https://zhxuc.github.io/webgl-tutorial/)
+[在线网址](https://fantasticit.github.io/webgl-tutorial/)
 
 ## 目录
 
